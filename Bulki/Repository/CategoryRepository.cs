@@ -1,9 +1,6 @@
-﻿using AspNetCore;
-using Bulki.Data;
+﻿using Bulki.Data;
 using Bulki.Models;
 using Bulki.Repository.IRepository;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Linq.Expressions;
 
 namespace Bulki.Repository
 {

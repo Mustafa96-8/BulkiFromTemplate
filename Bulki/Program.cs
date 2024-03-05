@@ -1,4 +1,6 @@
 using Bulki.Data;
+using Bulki.Repository;
+using Bulki.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -11,6 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseNpgsql
     (builder.Configuration.GetConnectionString("WebApiDatabase")));
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 
 var app = builder.Build();
 

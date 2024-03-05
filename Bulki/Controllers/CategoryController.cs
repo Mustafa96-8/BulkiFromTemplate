@@ -1,23 +1,25 @@
 ﻿using Bulki.Data;
 using Bulki.Models;
+using Bulki.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Bulki.Controllers
 {
 	public class CategoryController : Controller
 	{
 
-		private readonly ApplicationDbContext _context;
+		private readonly ICategoryRepository _categoryRepo;
 
-		public CategoryController(ApplicationDbContext context)
+		public CategoryController(ICategoryRepository context)
 		{
-			_context = context;		
+            _categoryRepo = context;		
 		}
 			
 		public IActionResult Index()
 		{
-			var objCategoryList = _context.Categories.ToList();
+			var objCategoryList = _categoryRepo.GetAll().ToList();
 			return View(objCategoryList);
 		}
 
@@ -27,7 +29,7 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _context.Categories.Find(id);
+            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
             //Category? categoryFromDb2 = _context.Categories.Where(u=>u.Id==id).FirstOrDefault();
             //Category? categoryFromDb3 = _context.Categories.FirstOrDefault(u=>u.Id==id);
 
@@ -38,23 +40,6 @@ namespace Bulki.Controllers
             return View(categoryFromDb);
         }
         
-        
-        /*public IActionResult GetOne(string name)
-        {
-            if (name == null || name == "")
-            {
-                return NotFound();
-            }
-            //Category? categoryFromDb = _context.Categories.Find(id);
-            Category? categoryFromDb = _context.Categories.Where(u=>u.Name==name).FirstOrDefault();
-            //Category? categoryFromDb3 = _context.Categories.FirstOrDefault(u=>u.Id==id);
-
-            if (categoryFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(categoryFromDb);
-        }*/
 
         //Create Block
         public IActionResult Create()
@@ -72,8 +57,8 @@ namespace Bulki.Controllers
             
             if (ModelState.IsValid)
 			{
-                _context.Categories.Add(obj); //Добавление в локальную БД
-                _context.SaveChanges(); //Сохранение в БД 
+                _categoryRepo.Add(obj); //Добавление в локальную БД
+                _categoryRepo.Save(); //Сохранение в БД 
                 TempData["success"] = "Категория успешно создана";
                 return RedirectToAction("Index");
             }
@@ -88,7 +73,7 @@ namespace Bulki.Controllers
             {
                 return NotFound(); 
             }
-            Category? categoryFromDb = _context.Categories.Find(id);
+            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
             //Category? categoryFromDb2 = _context.Categories.Where(u=>u.Id==id).FirstOrDefault();
             //Category? categoryFromDb3 = _context.Categories.FirstOrDefault(u=>u.Id==id);
 
@@ -105,8 +90,8 @@ namespace Bulki.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Categories.Update(obj); //Обновленеи в локальную БД
-                _context.SaveChanges(); //Сохранение в БД
+                _categoryRepo.Update(obj); //Обновленеи в локальную БД
+                _categoryRepo.Save(); //Сохранение в БД
                 TempData["success"] = "Категория успешно изменена";
                 return RedirectToAction("Index");
             }
@@ -120,7 +105,7 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _context.Categories.Find(id);
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
             
             if (categoryFromDb == null)
             {
@@ -135,13 +120,13 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? obj = _context.Categories.Find(id);
+            Category? obj = _categoryRepo.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _context.Categories.Remove(obj);
-            _context.SaveChanges();
+            _categoryRepo.Delete(obj);
+            _categoryRepo.Save();
             TempData["success"] = "Категория успешно удалена";
             return RedirectToAction("Index");
         }
