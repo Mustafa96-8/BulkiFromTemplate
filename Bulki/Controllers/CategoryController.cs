@@ -10,16 +10,16 @@ namespace Bulki.Controllers
 	public class CategoryController : Controller
 	{
 
-		private readonly ICategoryRepository _categoryRepo;
+		private readonly IUnitOfWork _unitOfWork;
 
-		public CategoryController(ICategoryRepository context)
+		public CategoryController(IUnitOfWork unitOfWork)
 		{
-            _categoryRepo = context;		
+            _unitOfWork = unitOfWork;		
 		}
 			
 		public IActionResult Index()
 		{
-			var objCategoryList = _categoryRepo.GetAll().ToList();
+			var objCategoryList = _unitOfWork.Category.GetAll().ToList();
 			return View(objCategoryList);
 		}
 
@@ -29,7 +29,7 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u=>u.Id==id);
             //Category? categoryFromDb2 = _context.Categories.Where(u=>u.Id==id).FirstOrDefault();
             //Category? categoryFromDb3 = _context.Categories.FirstOrDefault(u=>u.Id==id);
 
@@ -57,8 +57,8 @@ namespace Bulki.Controllers
             
             if (ModelState.IsValid)
 			{
-                _categoryRepo.Add(obj); //Добавление в локальную БД
-                _categoryRepo.Save(); //Сохранение в БД 
+                _unitOfWork.Category.Add(obj); //Добавление в локальную БД
+                _unitOfWork.Save(); //Сохранение в БД 
                 TempData["success"] = "Категория успешно создана";
                 return RedirectToAction("Index");
             }
@@ -73,7 +73,7 @@ namespace Bulki.Controllers
             {
                 return NotFound(); 
             }
-            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u=>u.Id==id);
             //Category? categoryFromDb2 = _context.Categories.Where(u=>u.Id==id).FirstOrDefault();
             //Category? categoryFromDb3 = _context.Categories.FirstOrDefault(u=>u.Id==id);
 
@@ -90,8 +90,8 @@ namespace Bulki.Controllers
 
             if (ModelState.IsValid)
             {
-                _categoryRepo.Update(obj); //Обновленеи в локальную БД
-                _categoryRepo.Save(); //Сохранение в БД
+                _unitOfWork.Category.Update(obj); //Обновленеи в локальную БД
+                _unitOfWork.Save(); //Сохранение в БД
                 TempData["success"] = "Категория успешно изменена";
                 return RedirectToAction("Index");
             }
@@ -105,7 +105,7 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             
             if (categoryFromDb == null)
             {
@@ -120,13 +120,13 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? obj = _categoryRepo.Get(u => u.Id == id);
+            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _categoryRepo.Delete(obj);
-            _categoryRepo.Save();
+            _unitOfWork.Category.Delete(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Категория успешно удалена";
             return RedirectToAction("Index");
         }
