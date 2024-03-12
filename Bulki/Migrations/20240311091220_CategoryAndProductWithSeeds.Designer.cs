@@ -2,6 +2,7 @@
 using Bulki.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bulki.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311091220_CategoryAndProductWithSeeds")]
+    partial class CategoryAndProductWithSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,11 +75,7 @@ namespace Bulki.Migrations
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -91,8 +90,6 @@ namespace Bulki.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
 
                     b.HasData(
@@ -100,7 +97,6 @@ namespace Bulki.Migrations
                         {
                             Id = 1,
                             Author = "Victor Luninin",
-                            CategoryId = 3,
                             Description = "For Child",
                             Price = 250.0,
                             Title = "Slovo o Polku Igoreve"
@@ -109,7 +105,6 @@ namespace Bulki.Migrations
                         {
                             Id = 2,
                             Author = "Brothers Strugatski",
-                            CategoryId = 1,
                             Description = "Adventure on anomaly place \"Zona\"",
                             Price = 350.0,
                             Title = "Roadside Picnic"
@@ -118,22 +113,10 @@ namespace Bulki.Migrations
                         {
                             Id = 3,
                             Author = "Dmitry Glukhovsky",
-                            CategoryId = 2,
                             Description = "Radioactive adventure Russian metro",
                             Price = 300.0,
                             Title = "Metro"
                         });
-                });
-
-            modelBuilder.Entity("Bulki.Models.Product", b =>
-                {
-                    b.HasOne("Bulki.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

@@ -120,12 +120,12 @@ namespace Bulki.Controllers
             {
                 return NotFound();
             }
-            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
-            if (obj == null)
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Delete(obj);
+            _unitOfWork.Category.Delete(categoryFromDb);
             _unitOfWork.Save();
             TempData["success"] = "Категория успешно удалена";
             return RedirectToAction("Index");
