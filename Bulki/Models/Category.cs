@@ -9,7 +9,7 @@ namespace Bulki.Models
         [Key]
         public int Id { get; set; }
         
-        [Required(ErrorMessage = "НАЗОВИ ЕГО БЛ!")]
+        [Required(ErrorMessage = "Нужно название")]
         [MaxLength(40)]
         [DisplayName("Category Name")]
         public string Name { get; set; }
