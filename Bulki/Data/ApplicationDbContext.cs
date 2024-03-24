@@ -21,9 +21,9 @@ namespace Bulki.Data
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Title = "Slovo o Polku Igoreve", Author = "Victor Luninin", Description = "For Child", Price = 250,CategoryId=3 },
-                new Product { Id = 2, Title = "Roadside Picnic", Author = "Brothers Strugatski", Description = "Adventure on anomaly place \"Zona\"", Price = 350,CategoryId=1 },
-                new Product { Id = 3, Title = "Metro", Author = "Dmitry Glukhovsky", Description = "Radioactive adventure Russian metro", Price = 300,CategoryId=2}
+                new Product { Id = 1, Title = "Slovo o Polku Igoreve", Author = "Victor Luninin", Description = "For Child", Price = 250,CategoryId=3,imageURL="" },
+                new Product { Id = 2, Title = "Roadside Picnic", Author = "Brothers Strugatski", Description = "Adventure on anomaly place \"Zona\"", Price = 350,CategoryId=1, imageURL = "" },
+                new Product { Id = 3, Title = "Metro", Author = "Dmitry Glukhovsky", Description = "Radioactive adventure Russian metro", Price = 300,CategoryId=2, imageURL = "" }
                 );
         }
     }

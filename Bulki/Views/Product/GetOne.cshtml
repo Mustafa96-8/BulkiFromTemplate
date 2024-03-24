@@ -19,6 +19,11 @@
                 <label asp-for="Author" class="p-0"></label> : @Html.DisplayName(Model.Author.ToString())
             </p>
         </div>
+        <div class="mb-3 row">
+            <p>
+                <label asp-for="Category.Name" class="p-0"></label> : @Html.DisplayName(Model.Category.Name.ToString())
+            </p>
+        </div>
         <div class="mb-6 row">
             <p>
                 <label asp-for="Description" class="p-0"></label> : @Html.DisplayName(Model.Description.ToString())

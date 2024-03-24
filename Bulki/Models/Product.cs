@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Bulki.Models
 {
@@ -22,10 +24,10 @@ namespace Bulki.Models
         public double Price { get; set; }
 
         public int CategoryId { get; set; }
-        
+        [ValidateNever]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-
-
+        [ValidateNever]
+        public string imageURL {  get; set; }
     }
 }

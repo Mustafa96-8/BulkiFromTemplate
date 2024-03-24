@@ -15,7 +15,21 @@ namespace Bulki.Repository
 
         public void Update(Product obj)
         {
-            _context.Products.Update(obj);
+            //_context.Products.Update(obj);
+            var objFromDb = _context.Products.FirstOrDefault(u=>u.Id==obj.Id);
+            if (objFromDb != null)
+            {
+                objFromDb.Title = obj.Title;
+                objFromDb.CategoryId = obj.CategoryId;
+                objFromDb.Price = obj.Price;
+                objFromDb.Author = obj.Author;
+                objFromDb.Description = obj.Description;
+                if (objFromDb.imageURL!= null)
+                {
+                    objFromDb.imageURL = obj.imageURL;
+                }
+                
+            }
         }
     }
 }
