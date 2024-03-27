@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Bulki.Controllers
+namespace Bulki.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProductController : Controller
     {
         private IUnitOfWork _unitOfWork;
@@ -24,14 +25,14 @@ namespace Bulki.Controllers
 
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
-;
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            ;
             return View(objProductList);
         }
 
         public IActionResult GetOne(int? id)
         {
-            if (id==null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
@@ -55,15 +56,15 @@ namespace Bulki.Controllers
                 }),
                 Product = new Product()
             };
-            if (id == null||id == 0)
+            if (id == null || id == 0)
             {
                 //create
                 return View(productVM);
             }
             else
-            {                        
+            {
                 //update
-                productVM.Product=_unitOfWork.Product.Get(u=>u.Id==id);
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
                 return View(productVM);
             }
         }
@@ -73,7 +74,7 @@ namespace Bulki.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                if(file!=null)
+                if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
@@ -83,7 +84,7 @@ namespace Bulki.Controllers
                         //delete old image
                         var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.imageURL.TrimStart('\\'));
 
-                        if(System.IO.File.Exists(oldImagePath))
+                        if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
                         }

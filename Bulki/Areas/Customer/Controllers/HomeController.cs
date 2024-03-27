@@ -2,8 +2,9 @@ using Bulki.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Bulki.Controllers
+namespace Bulki.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,10 +23,10 @@ namespace Bulki.Controllers
         {
             return View();
         }
-/*        public IActionResult Category() 
-        {
-            return View();
-        }*/
+        /*        public IActionResult Category() 
+                {
+                    return View();
+                }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
