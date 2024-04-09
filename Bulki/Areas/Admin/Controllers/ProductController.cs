@@ -29,7 +29,19 @@ namespace Bulki.Areas.Admin.Controllers
             ;
             return View(objProductList);
         }
-
+        public IActionResult Details(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            if (productFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(productFromDb);
+        }
         public IActionResult GetOne(int? id)
         {
             if (id == null || id == 0)
