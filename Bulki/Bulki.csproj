@@ -73,6 +73,7 @@
   <ItemGroup>
     <None Include="Areas\Admin\Views\Product\Det.cshtml" />
     <None Include="Areas\Customer\Views\Home\Det.cshtml" />
+    <None Include="Areas\Customer\Views\Home\Details.cshtml" />
   </ItemGroup>
 
 </Project>
