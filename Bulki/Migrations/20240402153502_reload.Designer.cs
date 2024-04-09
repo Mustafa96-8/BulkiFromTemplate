@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bulki.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240313161302_CategoryAndProductWithSeeds")]
-    partial class CategoryAndProductWithSeeds
+    [Migration("20240402153502_reload")]
+    partial class reload
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,10 @@ namespace Bulki.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("imageURL")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -106,7 +110,8 @@ namespace Bulki.Migrations
                             CategoryId = 3,
                             Description = "For Child",
                             Price = 250.0,
-                            Title = "Slovo o Polku Igoreve"
+                            Title = "Slovo o Polku Igoreve",
+                            imageURL = ""
                         },
                         new
                         {
@@ -115,7 +120,8 @@ namespace Bulki.Migrations
                             CategoryId = 1,
                             Description = "Adventure on anomaly place \"Zona\"",
                             Price = 350.0,
-                            Title = "Roadside Picnic"
+                            Title = "Roadside Picnic",
+                            imageURL = ""
                         },
                         new
                         {
@@ -124,7 +130,8 @@ namespace Bulki.Migrations
                             CategoryId = 2,
                             Description = "Radioactive adventure Russian metro",
                             Price = 300.0,
-                            Title = "Metro"
+                            Title = "Metro",
+                            imageURL = ""
                         });
                 });
 

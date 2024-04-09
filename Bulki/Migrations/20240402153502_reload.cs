@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bulki.Migrations
 {
     /// <inheritdoc />
-    public partial class CategoryAndProductWithSeeds : Migration
+    public partial class reload : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,8 @@ namespace Bulki.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     Author = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false)
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    imageURL = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,12 +63,12 @@ namespace Bulki.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Author", "CategoryId", "Description", "Price", "Title" },
+                columns: new[] { "Id", "Author", "CategoryId", "Description", "Price", "Title", "imageURL" },
                 values: new object[,]
                 {
-                    { 1, "Victor Luninin", 3, "For Child", 250.0, "Slovo o Polku Igoreve" },
-                    { 2, "Brothers Strugatski", 1, "Adventure on anomaly place \"Zona\"", 350.0, "Roadside Picnic" },
-                    { 3, "Dmitry Glukhovsky", 2, "Radioactive adventure Russian metro", 300.0, "Metro" }
+                    { 1, "Victor Luninin", 3, "For Child", 250.0, "Slovo o Polku Igoreve", "" },
+                    { 2, "Brothers Strugatski", 1, "Adventure on anomaly place \"Zona\"", 350.0, "Roadside Picnic", "" },
+                    { 3, "Dmitry Glukhovsky", 2, "Radioactive adventure Russian metro", 300.0, "Metro", "" }
                 });
 
             migrationBuilder.CreateIndex(
